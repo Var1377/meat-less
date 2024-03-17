@@ -1,7 +1,8 @@
-require('@nomicfoundation/hardhat-toolbox');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { VECHAIN_URL_SOLO, VECHAIN_URL_MAINNET, VECHAIN_URL_TESTNET } = require("@vechain/hardhat-vechain");
-require("@vechain/hardhat-web3")
+const { VECHAIN_URL_SOLO, VECHAIN_URL_MAINNET } = require("@vechain/hardhat-vechain");
+
+require('@nomicfoundation/hardhat-toolbox');
+require("@vechain/hardhat-web3");
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {

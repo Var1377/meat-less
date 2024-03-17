@@ -38,3 +38,18 @@ You can preview the production build with `npm run preview`.
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment. -->
 
 # Meatless
+
+Meatless offers small direct financial incentives to consumers when they buy sustainable food products, to help combat unsustainable food production at no cost to food manufactures, and enabling sponsors to have attributable direct impact.
+
+## Run
+
+```bash
+npx hardhat compile
+npm i
+npm run dev
+```
+
+## Demo
+
+![screenshot](https://github.com/Var1377/meat-less/blob/master/ss.jpg?raw=true)
+
