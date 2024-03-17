@@ -36,7 +36,7 @@ module.exports = {
 				path: "m/44'/818'/0'/0/",
 				count: 3,
 				initialIndex: 0,
-				passphrase: 'vechainthor'
+				passphrase: 'hi123456'
 			},
 			debugMode: true,
 			delegator: undefined,

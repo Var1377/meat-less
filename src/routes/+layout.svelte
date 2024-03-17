@@ -1,14 +1,21 @@
 <script lang="ts">
-  import Auth from './Auth.svelte';
+	import Auth from './Auth.svelte';
 
 	import '../app.postcss';
 
-
-	import { page } from '$app/stores';
-
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup, ProgressRadial, AppShell, AppBar, Drawer, getDrawerStore, initializeStores, Toast } from '@skeletonlabs/skeleton';
+	import {
+		storePopup,
+		ProgressRadial,
+		AppShell,
+		AppBar,
+		Drawer,
+		getDrawerStore,
+		initializeStores,
+		Toast
+	} from '@skeletonlabs/skeleton';
+	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	initializeStores();
@@ -19,49 +26,40 @@
 
 	import BarcodeDrawer, { barcodeDrawerId } from './scan/[barcode]/BarcodeDrawer.svelte';
 
-	import { BrowserMultiFormatReader } from '@zxing/browser';
-	import { goto } from '$app/navigation';
-
-	let videoStream: MediaStream | null = null;
-	let videoElement: HTMLVideoElement;
+	import { Html5Qrcode } from 'html5-qrcode';
 
 	let playing = false;
 
+	function onScanSuccess(qrCodeMessage: string) {
+		goto(`/scan/${encodeURIComponent(qrCodeMessage)}`);
+	}
+
+	function onScanFailure(error: any) {
+		// console.error('Failed to scan:', error);
+	}
+
 	async function startCamera() {
-		const codeReader = new BrowserMultiFormatReader();
-
+		const scanner = new Html5Qrcode('reader');
+		const config = {
+			fps: 10
+		};
 		try {
-			videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
-			videoElement.srcObject = videoStream;
-			videoElement.play();
-
+			scanner.start({ facingMode: 'environment' }, config, onScanSuccess, onScanFailure);
 			playing = true;
-
-			codeReader.decodeFromVideoElement(videoElement, (result, error) => {
-				if (result) {
-					// Handle QR code result
-					if ($page.url.pathname === "/") {
-						goto(`/scan/${encodeURIComponent(result.getText())}/`);
-					}
-				}
-			});
 		} catch (error) {
 			console.error('Error accessing camera:', error);
 		}
-	}
-
-	function stopCamera() {
-		if (videoStream) {
-			videoStream.getTracks().forEach((track) => track.stop());
-			videoStream = null;
-		}
+		return scanner;
 	}
 
 	onMount(() => {
-		startCamera();
-		return stopCamera;
+		const scanner = startCamera();
+		return () => {
+			scanner.then((s) => s.stop());
+		};
 	});
 </script>
+
 <Drawer>
 	{#if $drawerStore.id === barcodeDrawerId}
 		<BarcodeDrawer />
@@ -79,14 +77,11 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<video id="video-preview" class="w-screen h-screen object-cover absolute" bind:this={videoElement} controlslist="nodownload">
-		<track kind="captions" />
-	</video>
+	<div id="reader" class="w-screen h-screen object-cover absolute"></div>
 	{#if !playing}
 		<div class="flex items-center justify-center h-full">
-			<ProgressRadial width="w-12"/>
+			<ProgressRadial width="w-12" />
 		</div>
 	{/if}
 	<slot />
 </AppShell>
-
