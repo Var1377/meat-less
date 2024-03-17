@@ -1,3 +1,7 @@
+<script lang="ts" context="module">
+	export const loading = writable(false);
+</script>
+
 <script lang="ts">
 	import Auth from './Auth.svelte';
 
@@ -13,7 +17,8 @@
 		Drawer,
 		getDrawerStore,
 		initializeStores,
-		Toast
+		Toast,
+		ProgressBar
 	} from '@skeletonlabs/skeleton';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -27,6 +32,7 @@
 	import BarcodeDrawer, { barcodeDrawerId } from './scan/[barcode]/BarcodeDrawer.svelte';
 
 	import { Html5Qrcode } from 'html5-qrcode';
+	import { writable } from 'svelte/store';
 
 	let playing = false;
 
@@ -59,11 +65,10 @@
 		};
 	});
 </script>
-<style lang="postcss">
-	:global(video) {
-		@apply absolute h-screen object-cover;
-	}
-</style>
+
+{#if $loading}
+	<ProgressBar />
+{/if}
 <Drawer>
 	{#if $drawerStore.id === barcodeDrawerId}
 		<BarcodeDrawer />
@@ -89,3 +94,9 @@
 	{/if}
 	<slot />
 </AppShell>
+
+<style lang="postcss">
+	:global(video) {
+		@apply absolute h-screen object-cover;
+	}
+</style>

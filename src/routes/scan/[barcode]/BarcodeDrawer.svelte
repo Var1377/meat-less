@@ -8,6 +8,7 @@
 
 	import { barcodeStore } from './+layout.svelte';
 	import { goto } from '$app/navigation';
+	import { loading } from '../../+layout.svelte';
 
 	const toastStore = getToastStore();
 
@@ -17,11 +18,14 @@
 		event.preventDefault();
 		const addr = $walletStore.address;
 
+		loading.set(true);
+
 		if (!files) {
 			toastStore.trigger({
 				message: 'Please upload an image of the packaging',
 				background: 'bg-error-500'
 			});
+			loading.set(false);
 			return;
 		}
 
@@ -30,6 +34,7 @@
 				message: 'Please connect your wallet',
 				background: 'bg-error-500'
 			});
+			loading.set(false);
 			return;
 		}
 
@@ -55,6 +60,8 @@
 					message: json.error.message,
 					background: 'bg-error-500'
 				});
+				loading.set(false);
+
 				return;
 			}
 			toastStore.trigger({
@@ -62,6 +69,7 @@
 				background: 'bg-error-500'
 			});
 		}
+		loading.set(false); 
 	};
 
 	let files: FileList;
