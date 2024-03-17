@@ -12,6 +12,8 @@ export const actions = {
         const image = formData.get('image') as File;
         const userAddress = formData.get('userAddress') as string;
 
+        const imageURL = URL.createObjectURL(image);
+
         const product = getProductDetails(barcode);
 
         if (!image) throw error(400, 'No image provided');
@@ -26,7 +28,7 @@ export const actions = {
             }
         }
 
-        const verificationResult = await verifyImage(product, image);
+        const verificationResult = await verifyImage(product, imageURL);
 
         if (!verificationResult.verified) throw error(400, verificationResult.failedVerificationMessage);
 
