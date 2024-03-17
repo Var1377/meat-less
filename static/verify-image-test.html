@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Image Upload</title>
+</head>
+<body>
+    <h1>Test Image Upload</h1>
+    <form id="uploadForm">
+        <label for="productId">Product ID:</label>
+        <input type="text" id="productId" name="id" required>
+        <br>
+        <label for="userAddress">User Wallet Address:</label>
+        <input type="text" id="userAddress" name="userAddress" required>
+        <br>
+        <label for="imageFile">Image:</label>
+        <input type="file" id="imageFile" name="image" accept="image/*" required>
+        <br>
+        <button type="submit">Verify</button>
+    </form>
+    <div id="result"></div>
+    <script>
+const form = document.getElementById('uploadForm');
+const resultDiv = document.getElementById('result');
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+
+  fetch('/verify', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.verified) {
+        resultDiv.textContent = `Image verified`;
+    } else {
+        resultDiv.textContent = `Image not verified: ${data.failedVerificationMessage}`;
+    }
+  })
+  .catch(error => {
+    console.error(error);
+    resultDiv.textContent = 'Error: Something went wrong!';
+  });
+});
+
+    </script>
+</body>
+</html>

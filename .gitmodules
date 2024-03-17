@@ -1,0 +1,3 @@
+[submodule "meatless"]
+	path = meatless
+	url = https://github.com/jackpeck/meatless.git
