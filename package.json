@@ -30,6 +30,8 @@
     "@types/node": "20.11.28",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
+    "@vechain/hardhat-vechain": "^0.1.8",
+    "@vechain/hardhat-web3": "^0.1.8",
     "autoprefixer": "10.4.18",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -55,11 +57,13 @@
   "dependencies": {
     "@floating-ui/dom": "1.6.3",
     "@openzeppelin/contracts": "^5.0.2",
+    "@types/mocha": "^10.0.6",
     "@vechain/connex": "^2.1.0",
     "@vechain/dapp-kit-ui": "^1.0.12",
     "@vechain/sdk-core": "^1.0.0-beta.1",
     "@vechain/sdk-hardhat-plugin": "^1.0.0-beta.1",
     "@zxing/browser": "^0.1.4",
+    "mocha": "^10.3.0",
     "openai": "^4.29.1"
   }
 }

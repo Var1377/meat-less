@@ -8,7 +8,7 @@
 
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
-	import { storePopup, ProgressRadial, AppShell, AppBar, Drawer, getDrawerStore, initializeStores } from '@skeletonlabs/skeleton';
+	import { storePopup, ProgressRadial, AppShell, AppBar, Drawer, getDrawerStore, initializeStores, Toast } from '@skeletonlabs/skeleton';
 	import { onMount } from 'svelte';
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 	initializeStores();
@@ -67,6 +67,7 @@
 		<BarcodeDrawer />
 	{/if}
 </Drawer>
+<Toast />
 <AppShell>
 	<svelte:fragment slot="header">
 		<AppBar>
