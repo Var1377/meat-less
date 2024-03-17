@@ -28,10 +28,11 @@ module.exports = {
 		 */
 		vechain_testnet: {
 			// Testnet
-			url: VECHAIN_URL_TESTNET,
+			url: 'https://testnet.vechain.org',
+
 			accounts: {
 				mnemonic:
-					'crane table twist guard pizza legal vacuum engage dish insect gather prison',
+                    'water coin cattle uncover law resemble frequent inner fiber olympic bless hawk',
 				path: "m/44'/818'/0'/0/",
 				count: 3,
 				initialIndex: 0,
@@ -62,5 +63,6 @@ module.exports = {
 			httpHeaders: {}
 		}
 	},
-  defaultNetwork: 'vechain_solo',
+//   defaultNetwork: 'vechain_solo',
+  defaultNetwork: 'vechain_testnet',
 };
