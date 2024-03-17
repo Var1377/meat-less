@@ -59,7 +59,11 @@
 		};
 	});
 </script>
-
+<style lang="postcss">
+	:global(video) {
+		@apply absolute h-screen object-cover;
+	}
+</style>
 <Drawer>
 	{#if $drawerStore.id === barcodeDrawerId}
 		<BarcodeDrawer />
@@ -77,7 +81,7 @@
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<div id="reader" class="w-screen h-screen object-cover absolute"></div>
+	<div id="reader" class="h-screen object-cover absolute"></div>
 	{#if !playing}
 		<div class="flex items-center justify-center h-full">
 			<ProgressRadial width="w-12" />
