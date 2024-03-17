@@ -62,5 +62,5 @@ module.exports = {
 			httpHeaders: {}
 		}
 	},
-  defaultNetwork: 'vechain_testnet',
+  defaultNetwork: 'vechain_solo',
 };
