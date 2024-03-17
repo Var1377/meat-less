@@ -42,9 +42,6 @@
 			body: formData
 		});
 
-		const json = await response.json();
-		console.log(json);
-
 		if (response.ok) {
 			toastStore.trigger({
 				message: 'Claim successful',
@@ -52,6 +49,7 @@
 			});
 			goto('/');
 		} else {
+			const json = await response.json();
 			if (json.error.message) {
 				toastStore.trigger({
 					message: json.error.message,
@@ -67,6 +65,11 @@
 	};
 
 	let files: FileList;
+
+	$: meatless = $barcodeStore?.product?.tokens?.MeatlessToken || 0;
+	$: local = $barcodeStore?.product?.tokens?.LocalToken || 0;
+
+	$: b3tr = meatless * 5.3091273562 + local * 3.18374908;
 </script>
 
 {#if $barcodeStore?.product?.name}
@@ -90,12 +93,6 @@
 				</p>
 			{/if}
 		</section>
-		<!-- {#if $barcodeStore?.product?.description}
-		<p>{$barcodeStore.product.description}</p>
-	{/if}
-	{#if $barcodeStore?.product?.image}
-		<img src={$barcodeStore.product.image} alt="Product" class="h-48 rounded-lg" />
-	{/if} -->
 		<FileButton accept="image/*" name="image" bind:files>
 			{#if files}
 				<p class="text-center">{files[0].name}</p>
@@ -103,7 +100,7 @@
 				<p class="text-center">Upload image of packaging</p>
 			{/if}
 		</FileButton>
-		<button type="submit" class="btn variant-glass">Claim 4.1826 B3TR</button>
+		<button type="submit" class="btn variant-glass">Claim {b3tr.toPrecision(5)} B3TR</button>
 	</form>
 {:else}
 	<h1 class="h1 p-8 text-center">Product not found</h1>
@@ -114,3 +111,7 @@
 
 <!-- Sync2 Windows -->
 <!-- crane table twist guard pizza legal vacuum engage dish insect gather prison -->
+
+<!-- Sync2 firefox -->
+<!-- eyebrow lens suggest census lend paper man hollow gospel seek group obtain -->
+<!-- obscure rule shrimp patrol image run parrot injury kingdom crash power mercy -->
