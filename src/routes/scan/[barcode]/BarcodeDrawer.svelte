@@ -42,6 +42,9 @@
 			body: formData
 		});
 
+		const json = await response.json();
+		console.log(json);
+
 		if (response.ok) {
 			toastStore.trigger({
 				message: 'Claim successful',
@@ -49,6 +52,13 @@
 			});
 			goto('/');
 		} else {
+			if (json.error.message) {
+				toastStore.trigger({
+					message: json.error.message,
+					background: 'bg-error-500'
+				});
+				return;
+			}
 			toastStore.trigger({
 				message: 'Error submitting claim',
 				background: 'bg-error-500'

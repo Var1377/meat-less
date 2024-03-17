@@ -2,6 +2,16 @@ import { error } from '@sveltejs/kit';
 import { getProductDetails } from './productDatabase.js';
 import { verifyImage } from './verification.server.js';
 import { creditUser } from './creditUser.js';
+import { extname } from 'path';
+
+async function encodeImageFileToBase64Url(file: File) {
+    const array = await file.arrayBuffer();
+    const base64String = Buffer.from(array).toString('base64');
+    const extension = extname(file.name).substring(1);
+    return `data:image/${extension};base64,${base64String}`;
+}
+
+
 
 export const actions = {
     verify:  async ({ params, request }) => {
@@ -12,7 +22,7 @@ export const actions = {
         const image = formData.get('image') as File;
         const userAddress = formData.get('userAddress') as string;
 
-        const imageURL = URL.createObjectURL(image);
+        const imageURL = await encodeImageFileToBase64Url(image);
 
         const product = getProductDetails(barcode);
 
