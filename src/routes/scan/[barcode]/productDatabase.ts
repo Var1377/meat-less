@@ -30,7 +30,14 @@ const mock: ProductDetails[] = [
         tokens: {
             LocalToken: 3,
         },
-    }
+    },
+    {
+        id: '5060678710583',
+        name: `This Isn't Pork Sausages`,
+        tokens: {
+            MeatlessToken: 5,
+        }
+    },
 ];
 
 export type ProductDetails = {
