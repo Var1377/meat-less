@@ -38,6 +38,21 @@ const mock: ProductDetails[] = [
             MeatlessToken: 5,
         }
     },
+    {
+        id: "0102009",
+        name: "Coca Cola 330ml",
+        tokens: {
+            LocalToken: 3,
+        }  
+    },
+    {
+        id: "5449000053879",
+        name: "Diet Coke 330ml",
+        tokens: {
+            LocalToken: 5,
+        }
+    },
+
 ];
 
 export type ProductDetails = {
