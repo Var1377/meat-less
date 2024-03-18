@@ -39,7 +39,7 @@ const mock: ProductDetails[] = [
         }
     },
     {
-        id: "0102009",
+        id: "5740700988349",
         name: "Coca Cola 330ml",
         tokens: {
             LocalToken: 3,

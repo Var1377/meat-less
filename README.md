@@ -49,6 +49,11 @@ npm i
 npm run dev
 ```
 
+Or to expose on local network:
+```bash
+npm run dev-host
+```
+
 ## Demo
 
 ![screenshot](https://github.com/Var1377/meat-less/blob/master/ss.jpg?raw=true)
